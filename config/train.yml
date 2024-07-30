@@ -1,0 +1,86 @@
+# default conf
+test: False
+# test: True
+
+# train
+train:
+  epoch: 200
+  early_stop: 10
+  checkpoint: /home/work_nfs6/zqwang/workspace/e3net/exp/exp_cos_2loss_TAPloss
+  resume: 
+  spk_resume: /home/work_nfs4_ssd/hzhao/aslp-spknet-fork/exp/ecapa_augment_vox2/results/ecapa_augments_vox2/final.pth.tar
+  eval_interval: -1
+  use_cuda: True
+  save_period: 1
+  seed: 1234
+
+# nnet
+nnet_conf:
+  frame_len: 320
+  frame_hop: 160
+  filter_num: 2048
+  linear_dim: 1024
+  lstm_dim: 256
+
+# optimizer 
+optim:
+  name: adam  ### Adam, RMSprop, SGD
+  lr_attention: !!float 1.0e-6
+  optimizer_kwargs:
+    lr: !!float 1.0e-3
+    weight_decay: !!float 1.0e-5
+    # momentum: 0
+  gradient_clip: 5.
+
+# scheduler
+scheduler:
+  T_max: 50
+  eta_min: 0
+  last_epoch: -1
+
+# logger
+logger:
+  path: 
+  print_freq: 100
+  # print_freq: 2
+
+# dataloader:
+datasets:
+
+  train:
+    clean_scp: /home/work_nfs4_ssd/xpyan/Extr/minidata/tr/minidata_clean_tr.lst
+    clean_spk: /home/work_nfs4_ssd/xpyan/Extr/minidata/tr/minidata_clean_tr_id.lst
+    infer_scp: /home/work_nfs4_ssd/xpyan/Extr/minidata/tr/minidata_clean_tr_id.lst
+    noise_scp: /home/work_nfs4_ssd/ykjv/data/new_DNS/data_list/tr/new_noise_tr.lst
+    rir_scp: /home/work_nfs4_ssd/ykjv/data/new_DNS/data_list/tr/new_rir_tr.lst
+
+  val:
+    clean_scp: /home/work_nfs4_ssd/xpyan/Extr/minidata/cv/minidata_clean_cv.lst
+    clean_spk: /home/work_nfs4_ssd/xpyan/Extr/minidata/cv/minidata_clean_cv_id.lst
+    infer_scp: /home/work_nfs4_ssd/xpyan/Extr/minidata/cv/minidata_clean_cv.lst
+    noise_scp: /home/work_nfs4_ssd/ykjv/data/new_DNS/data_list/cv/new_noise_cv.lst
+    rir_scp: /home/work_nfs4_ssd/ykjv/data/new_DNS/data_list/cv/new_rir_cv.lst
+  
+  test:
+    clean_scp: /home/work_nfs4_ssd/xpyan/Extr/minidata/tt/minidata_clean_cv.lst
+    clean_spk: /home/work_nfs4_ssd/xpyan/Extr/minidata/tt/minidata_clean_cv_id.lst
+    infer_scp: /home/work_nfs4_ssd/xpyan/Extr/minidata/tt/minidata_clean_cv.lst
+    noise_scp: /home/work_nfs4_ssd/ykjv/data/new_DNS/data_list/cv/new_noise_cv.lst
+    rir_scp: /home/work_nfs4_ssd/ykjv/data/new_DNS/data_list/cv/new_rir_cv.lst
+
+  dataloader_setting:
+    batch_size: 12 # # crn_cirm_cat_skipcnn: 16 (11G) 
+    repeat: 1
+    num_workers: 16
+    segment_length: 4
+    aux_segment_length: 4
+    sample_rate: 16000
+
+
+
+
+
+
+
+
+
